@@ -27,9 +27,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 // Ensure the target directory exists and deploy the build files
-                sh 'mkdir -p /var/jenkins_home/workspace/NewProject/deploy'
-                sh 'rm -rf /var/jenkins_home/workspace/NewProject/deploy/*'
-                sh 'cp -r build/* /var/jenkins_home/workspace/NewProject/deploy/'
+                sh 'mkdir -p $WORKSPACE/deploy'
+                sh 'rm -rf $WORKSPACE/deploy/*'
+                sh 'cp -r build/* $WORKSPACE/deploy/'
             }
         }
     }
