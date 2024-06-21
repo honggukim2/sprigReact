@@ -17,7 +17,9 @@ pipeline {
         }
         stage('Verify Build') {
             steps {
-                sh 'ls -al test/build'
+                dir('test') {
+                    sh 'ls -al build'
+                }
             }
         }
         stage('Deploy') {
