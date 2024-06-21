@@ -15,13 +15,17 @@ pipeline {
                 }
             }
         }
+        stage('Verify Build') {
+            steps {
+                dir('test/build') {
+                    sh 'ls -al'
+                }
+            }
+        }
         stage('Deploy') {
             steps {
-                dir('test') {
-                    sh 'ls -al build' // build 디렉토리 내용 확인
-                    sh 'rm -rf /var/www/html/*'
-                    sh 'cp -r build/* /var/www/html/'
-                }
+                sh 'rm -rf /var/www/html/*'
+                sh 'cp -r test/build/* /var/www/html/'
             }
         }
     }
