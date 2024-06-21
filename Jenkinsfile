@@ -26,8 +26,10 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'rm -rf /var/www/html/*'
-                sh 'cp -r build/* /var/www/html/'  // 상위 디렉토리에서 build 폴더 복사
+                // Ensure the target directory exists
+                sh 'sudo mkdir -p /var/www/html'
+                sh 'sudo rm -rf /var/www/html/*'
+                sh 'sudo cp -r build/* /var/www/html/'
             }
         }
     }
