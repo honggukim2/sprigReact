@@ -13,24 +13,28 @@ pipeline {
                 sh 'echo "Workspace directory:"'
                 sh 'ls -al /var/jenkins_home/workspace'
                 sh 'ls -al /var/jenkins_home/workspace/NewProject || echo "NewProject directory not found"'
+                sh 'ls -al /var/jenkins_home/workspace/NewProject/TEST || echo "TEST directory not found"'
+                sh 'ls -al /var/jenkins_home/workspace/NewProject/TEST/test || echo "TEST/test directory not found"'
+                sh 'ls -al /var/jenkins_home/workspace/NewProject/TEST/test/public || echo "TEST/test/public directory not found"'
+                sh 'ls -al /var/jenkins_home/workspace/NewProject/TEST/test/src || echo "TEST/test/src directory not found"'
             }
         }
         stage('Build') {
             steps {
-                dir('TEST') {
+                dir('TEST/test') {
                     // 소스 코드 경로에서 파일을 확인합니다.
-                    sh 'echo "Listing TEST directory after checkout:"'
+                    sh 'echo "Listing TEST/test directory after checkout:"'
                     sh 'ls -al'
-                    sh 'ls -al test/public || echo "Directory test/public not found"'
-                    sh 'ls -al test/src || echo "Directory test/src not found"'
+                    sh 'ls -al public || echo "Directory public not found"'
+                    sh 'ls -al src || echo "Directory src not found"'
                     // npm 설치를 진행합니다.
                     sh 'npm install'
                     // 'public' 폴더를 루트로 이동
-                    sh 'mkdir -p ./public && cp -r test/public/* ./public || echo "Failed to copy public directory"'
+                    sh 'mkdir -p ../../public && cp -r public/* ../../public || echo "Failed to copy public directory"'
                     // 'src' 폴더를 루트로 이동
-                    sh 'mkdir -p ./src && cp -r test/src/* ./src || echo "Failed to copy src directory"'
+                    sh 'mkdir -p ../../src && cp -r src/* ../../src || echo "Failed to copy src directory"'
                     // 애플리케이션을 빌드합니다.
-                    sh 'npm run build'
+                    sh 'cd ../.. && npm run build'
                 }
             }
         }
