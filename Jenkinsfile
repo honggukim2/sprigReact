@@ -19,16 +19,15 @@ pipeline {
         }
         stage('Verify Build') {
             steps {
-                dir('test') {
-                    sh 'echo "Verifying build directory:"'
-                    sh 'ls -al build'
-                }
+                sh 'echo "Verifying build directory:"'
+                sh 'ls -al test/build'
+                sh 'ls -al build'
             }
         }
         stage('Deploy') {
             steps {
                 sh 'rm -rf /var/www/html/*'
-                sh 'cp -r test/build/* /var/www/html/'
+                sh 'cp -r build/* /var/www/html/'  // 상위 디렉토리에서 build 폴더 복사
             }
         }
     }
