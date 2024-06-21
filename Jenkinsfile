@@ -41,7 +41,8 @@ pipeline {
             steps {
                 dir('test') {
                     // 빌드된 파일을 Nginx 웹 루트 디렉토리로 복사합니다.
-                    sh 'cp -r build/* /var/www/html/ || echo "Failed to copy build files"'
+                     sh 'sudo rm -rf /var/www/html/*'
+                     sh 'sudo cp -r test/build/* /var/www/html/'
                 }
             }
         }
