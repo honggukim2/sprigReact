@@ -26,10 +26,10 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                // Ensure the target directory exists
-                sh 'sudo mkdir -p /var/www/html'
-                sh 'sudo rm -rf /var/www/html/*'
-                sh 'sudo cp -r build/* /var/www/html/'
+                // Ensure the target directory exists and deploy the build files
+                sh 'mkdir -p /var/www/html'
+                sh 'rm -rf /var/www/html/*'
+                sh 'cp -r build/* /var/www/html/'
             }
         }
     }
