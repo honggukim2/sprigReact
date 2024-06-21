@@ -12,13 +12,15 @@ pipeline {
                 dir('test') {
                     sh 'npm install'
                     sh 'npm run build'
+                    sh 'echo "Build completed. Listing files:"'
+                    sh 'ls -al'
                 }
             }
         }
         stage('Verify Build') {
             steps {
                 dir('test') {
-                    sh 'ls -al'
+                    sh 'echo "Verifying build directory:"'
                     sh 'ls -al build'
                 }
             }
