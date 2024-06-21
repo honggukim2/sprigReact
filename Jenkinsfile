@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/honggukim2/sprigReact.git'
+                git branch: 'main', url: 'https://github.com/honggukim2/sprigReact.git'
             }
         }
         stage('Build') {
